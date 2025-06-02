@@ -26,18 +26,23 @@ public class HistoricoDAO {
         db.insert(DBHelper.TABLE_NAME, null, values);
     }
 
-    public ArrayList<String> listarTodos() {
-        ArrayList<String> lista = new ArrayList<>();
+    public ArrayList<Endereco> listarTodos() {
+        ArrayList<Endereco> lista = new ArrayList<>();
         Cursor cursor = db.query(DBHelper.TABLE_NAME, null, null, null, null, null, "id DESC");
 
         if (cursor.moveToFirst()) {
             do {
-                String item = "CEP: " + cursor.getString(1) + "\n" +
-                        cursor.getString(2) + ", " + cursor.getString(3) + "\n" +
-                        cursor.getString(4) + " - " + cursor.getString(5);
-                lista.add(item);
+                Endereco e = new Endereco(
+                        cursor.getString(1), // cep
+                        cursor.getString(2), // logradouro
+                        cursor.getString(3), // bairro
+                        cursor.getString(4), // cidade
+                        cursor.getString(5)  // uf
+                );
+                lista.add(e);
             } while (cursor.moveToNext());
         }
+
         cursor.close();
         return lista;
     }

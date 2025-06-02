@@ -71,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
 
                         textResultado.setText(resultado);
 
+
+                        HistoricoDAO dao = new HistoricoDAO(this);
+                        dao.inserir(cep, logradouro, bairro, cidade, uf);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                         textResultado.setText("Erro ao processar os dados.");
